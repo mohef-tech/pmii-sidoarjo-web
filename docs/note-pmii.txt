@@ -1,0 +1,12 @@
+pmii-darjoAntigravity
+
+username : admin@pmiisidoarjo.or.id
+password : pmii123
+
+data dari database :
+DB_DATABASE=pmii_darjo
+DB_USERNAME=pmii
+DB_PASSWORD=Sidoarjo1960$
+
+
+mysqldump -u pmii -p pmii_darjo > pmii_database_master.sql
