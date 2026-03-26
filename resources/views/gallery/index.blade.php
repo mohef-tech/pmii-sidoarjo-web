@@ -52,7 +52,8 @@
                          @click="open = true; currentIndex = index">
                         <img :src="image.image_path ? (image.image_path.startsWith('http') ? image.image_path : '/storage/' + image.image_path) : '/storage/' + image.image" 
                              :alt="image.title"
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                             onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23e5e7eb\'/%3E%3Ctext x=\'50\' y=\'55\' font-size=\'30\' text-anchor=\'middle\' fill=\'%239ca3af\'%3E🖼%3C/text%3E%3C/svg%3E';">
                         
                         <!-- Overlay on Hover -->
                         <div class="absolute inset-0 bg-pmii-blue/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -109,7 +110,8 @@
                     <img :src="imageUrl" 
                          class="w-full object-contain shadow-2xl rounded-lg"
                          style="max-height: 80vh;"
-                         @click.stop>
+                         @click.stop
+                         onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\' viewBox=\'0 0 400 300\'%3E%3Crect width=\'400\' height=\'300\' fill=\'%231f2937\'/%3E%3Ctext x=\'200\' y=\'140\' font-size=\'60\' text-anchor=\'middle\' fill=\'%234b5563\'%3E🖼%3C/text%3E%3Ctext x=\'200\' y=\'195\' font-size=\'16\' text-anchor=\'middle\' fill=\'%236b7280\'%3EGambar tidak ditemukan%3C/text%3E%3C/svg%3E';">
                     
                     <!-- Caption (Optional) -->
                     <div x-show="activeImage && activeImage.title"
