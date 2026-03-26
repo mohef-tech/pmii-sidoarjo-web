@@ -12,9 +12,15 @@ class SiteSettingsTable
     {
         return $table
             ->modifyQueryUsing(fn ($query) =>
-                // Sembunyikan profil_media_type dan link_bergabung
-                // link_bergabung sudah dipindah ke Slider menu
-                $query->whereNotIn('key', ['profil_media_type', 'link_bergabung'])
+                // Sembunyikan key internal yang dikelola di menu lain:
+                // - profil_media_type : dikelola otomatis via afterSave()
+                // - link_bergabung    : sudah dipindah ke Slider menu
+                // - sk_requirements_config : dikelola di menu Pengajuan SK (⚙️ Pengaturan Form)
+                $query->whereNotIn('key', [
+                    'profil_media_type',
+                    'link_bergabung',
+                    'sk_requirements_config',
+                ])
             )
             ->columns([
                 TextColumn::make('label')

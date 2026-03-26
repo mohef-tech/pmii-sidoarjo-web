@@ -17,13 +17,22 @@ class EditSiteSetting extends EditRecord
 
     /**
      * Setelah record disimpan, jika key-nya adalah 'profil_media',
-     * simpan juga nilai tipe media ke 'profil_media_type'.
+     * deteksi tipe media secara otomatis dari nilai URL yang tersimpan.
+     *
+     * Deteksi berbasis nilai (bukan form state) sehingga tidak bergantung
+     * pada field dehydrated(false) yang tidak bisa dibaca via getState().
      */
     protected function afterSave(): void
     {
         if ($this->record->key === 'profil_media') {
-            $selectedType = $this->form->getState()['profil_media_type_field'] ?? 'image';
-            SiteSetting::set('profil_media_type', $selectedType);
+            $value = $this->record->value ?? '';
+
+            // Jika value mengandung domain video → simpan tipe 'video'
+            $isVideo = str_contains($value, 'youtube.com')
+                    || str_contains($value, 'youtu.be')
+                    || str_contains($value, 'vimeo.com');
+
+            SiteSetting::set('profil_media_type', $isVideo ? 'video' : 'image');
         }
     }
 }

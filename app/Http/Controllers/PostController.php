@@ -42,9 +42,17 @@ class PostController extends Controller
         ];
 
         // Profil section settings
+        $profilMediaType = SiteSetting::get('profil_media_type', 'image');
+        $profilMediaRaw  = SiteSetting::get('profil_media', '');
+
+        // Jika tipe video: konversi URL YouTube biasa → URL embed
+        $profilMedia = $profilMediaType === 'video'
+            ? SiteSetting::youtubeEmbedUrl($profilMediaRaw)
+            : $profilMediaRaw;
+
         $profil = [
-            'media'      => SiteSetting::get('profil_media', ''),
-            'media_type' => SiteSetting::get('profil_media_type', 'image'),
+            'media'      => $profilMedia,
+            'media_type' => $profilMediaType,
             'judul'      => SiteSetting::get('profil_judul', 'Pergerakan Mahasiswa Islam Indonesia'),
             'deskripsi'  => SiteSetting::get('profil_deskripsi', 'PMII merupakan organisasi gerakan dan kaderisasi yang berlandaskan islam ahlussunah waljamaah. Berdiri sejak tanggal 17 April 1960 di Surabaya dan hingga lebih dari setengah abad kini PMII terus eksis untuk memberikan kontribusi bagi kemajuan bangsa dan negara.'),
             'tujuan'     => SiteSetting::get('profil_tujuan', 'Terbentuknya pribadi muslim Indonesia yang bertakwa kepada Allah Swt, Berbudi luhur, berilmu, cakap dan bertanggungjawab dalam mengamalkan ilmunya serta komitmen memperjuangkan cita-cita kemerdekaan Indonesia.'),
